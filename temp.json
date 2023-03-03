@@ -1,0 +1,25 @@
+{
+      "user":  {
+        "name":"ritik",
+        "email":"ritikjain98.r@gmail.com",
+        "password":"123456",
+        "username":"ritikj",
+        "dept":"Mca",
+        "status":"active"
+               },
+        
+        "student":
+        {
+                "aadharnumber":12345678,
+                "dob": "2022-09-12",
+                "bloodgroup": "          b+VE                     ",
+                "address": "                   near nO. 1 School,Tijara",
+                "status": "",
+                "rollno": "  1234423",
+                "admdate": "2022-10-23",
+                "phone":"637798034"
+        }
+}
+
+
+
