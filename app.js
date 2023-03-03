@@ -2,7 +2,7 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const app = express();
-const LoginRouter = require("./routes/loginRouter");
+const loginRouter = require("./routes/loginRouter");
 const adminRouter = require("./routes/adminRouter");
 const studentRouter = require("./routes/studentRouter");
 const notFoundMiddleware = require('./middleware/notFound');
@@ -13,7 +13,7 @@ app.use(express.json());
 
 // Middlewares for user
 app.use('/admin',adminRouter);
-app.use("", LoginRouter);
+app.use("", loginRouter);
 app.use("/student", studentRouter);
 
 //common route for dashboard
