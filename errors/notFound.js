@@ -9,16 +9,3 @@ constructor(message){
 }
 
 module.exports = notFoundError;
-
-
-
-
-
-
-// class Error {
-//   constructor(message) {
-//     this.message = message;
-//     this.name = "Error"; // (different names for different built-in error classes)
-//     this.stack = <call stack>; // non-standard, but most environments support it
-//   }
-// }

@@ -1,12 +1,32 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
+const mysql = require("mysql");
+
+// for for connecting sql db connection
+const SQL_DB_CONN= mysql.createConnection({
+  host: process.env.HOST,
+  user: process.env.USER_DB,
+  password:process.env.PASSWORD,
+  database:process.env.DATABASE
+});
+
+SQL_DB_CONN.connect((err) => {
+  if (err) {
+    throw err;
+  } else {
+    console.log("MYSQL CONNECTED")
+  }
+})
+
+//for establishing the mongo db connection
 mongoose.set("strictQuery", false);
-//for establishing the connection
-const connectDb = (url) => {
+const connectmongoDb = (url) => {
   return mongoose.connect(url,{});
 };
 
 module.exports = {
-  connectDb,
+  connectmongoDb,
+  SQL_DB_CONN
 };
 
 

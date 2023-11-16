@@ -1,11 +1,8 @@
-// const { customApiError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const mongoose = require("mongoose");
 const databaseVar = require("../db/database");
 
 const errorHandlerMiddleware = (err, req, res, next) => {
-  console.log("............................");
-  console.log("error in middleware is=", err);
 
   let customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
@@ -32,6 +29,20 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = 400;
   }
 
+  if (err.name === "JsonWebTokenError") {
+    customError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+      .join(", ");
+    customError.statusCode = 401;
+  }
+
+  if (err.errno == "1062") {
+    customError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+      .join(", ");
+    customError.statusCode = 401;
+  }
+
   if (err.code && err.code === 11000) {
     (customError.msg = `Duplicate value entered for ${Object.keys(
       err.keyValue
@@ -44,14 +55,8 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = 404;
   }
 
-  // if (Object.values(err.errors)[0]=== "CastError") {
-  //   customError.msg = `Cast to ObjectId failed for value : ${err.value}`;
-  //   customError.statusCode = 404;
-  // }
-
   //closing the connection if established , if any error came
   if (mongoose.connection.readyState == 1){
-    console.log("---------------------------------------------------------------")
     mongoose.connection.close(function () {
       console.log(
         "Error came here, in errorhandler, connection closed with readystate =",

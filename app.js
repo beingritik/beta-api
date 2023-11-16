@@ -2,32 +2,30 @@ require("dotenv").config();
 require("express-async-errors");
 const express = require("express");
 const app = express();
-const loginRouter = require("./routes/loginRouter"); 
-const adminRouter = require("./routes/adminRouter");
-const studentRouter = require("./routes/studentRouter");
+
+// //Required dependencies 
+app.use(express.json());
+const bodyParser = require("body-parser")
 const notFoundMiddleware = require('./middleware/notFound');
 const {errorHandlerMiddleware} = require("./middleware/errorhandler");
 
-//Required dependencies 
-app.use(express.json());
+// Middleware to parse URL-encoded form data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-// Middlewares for user
-app.use('/admin',adminRouter);
+//required dependencies for routes
+const loginRouter = require("./routes/loginRouter"); 
+const registerRouter = require("./routes/registerRouter"); 
+const gameRouter = require("./routes/gameRouter"); 
+
+//Middlewares for the Routes
 app.use("", loginRouter);
-app.use("/student", studentRouter);
-
-// common route for dashboard
-// app.get("/", asyn (req, res) => {
-//   res.send("Dashboard");
-// });
+app.use("", registerRouter);
+app.use("/user", gameRouter);
 
 //Midlewares for errors
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
-
-
-
-
 
 //Calling the port 
 const port = process.env.PORT || 3001;
