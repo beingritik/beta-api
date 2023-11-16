@@ -7,9 +7,17 @@ const { BadRequestError } = require("../errors");
 const userLogin = async function (req, res) {
   try {
     const { email, password } = req.body;
+
+    //for regex matching of emial field
+    let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let isValidEmail = emailRegex.test(email);
+    if (!isValidEmail) {
+      res.status(400).json({ error: "invalid email" });
+    }
     if (!email && !password) {
       throw new BadRequestError("Missing credentials");
     }
+    
     const sqlQuery = `SELECT * FROM users WHERE email = '${email}'`;
     const queryplaceholder = [];
     queryplaceholder.push(email);
@@ -43,16 +51,23 @@ const userLogin = async function (req, res) {
     console.log("error in login function is=", err.message);
     throw err;
   }
-
 };
 
 //Registeration of new user
 const userRegister = async function (req, res) {
   try {
     const { username, email, password_hash, status } = req.body;
-    if(!username || !password_hash || !email ||!status){
+
+    let emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    let isValidEmail = emailRegex.test(email);
+
+    if (!username || !password_hash || !email || !status) {
       res.status(400).json({ error: "missing info" });
     }
+    if (!isValidEmail) {
+      res.status(400).json({ error: "invalid email" });
+    }
+
     // Hash the password
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password_hash, saltRounds);
@@ -81,5 +96,5 @@ const userRegister = async function (req, res) {
 
 module.exports = {
   userRegister,
-  userLogin
+  userLogin,
 };
