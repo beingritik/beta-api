@@ -27,6 +27,18 @@ This project consists of API endpoints for user login system using MYSQL + Nodej
 
    - Also, MODIFICATIONS in the ENV file needs to be done in env variables as hostname, username, database and password.
 
+   **RabbitMQ**
+
+5. Install the Rabbit MQ and start the service in Linux in following steps:
+
+- sudo apt update
+- sudo apt install rabbitmq-server
+- sudo service rabbitmq-server start
+- sudo systemctl enable rabbitmq-server
+- sudo systemctl status rabbitmq-server
+
+2. RabbitMQ Configuration is given in the ENV file.
+
 ## Usage
 
 1. Run the application: `npm start`.
@@ -86,6 +98,11 @@ This project consists of API endpoints for user login system using MYSQL + Nodej
 
    - **Get Game**
      - Endpoint: `/user/getGame/userID` (GET)
+
+4. When the New user registers, the log message got written at rabbitlogs.log file.
+
+- **RabbitMQ File**
+  - ./logs/rabbitlogs.log
 
 ## Features
 

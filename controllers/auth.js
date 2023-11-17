@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const { SQL_DB_CONN, connectmongoDb } = require("../db/connect");
 const { generateToken } = require("../libraries/jwt");
 const { BadRequestError } = require("../errors");
+const Rabbit = require('../events/rabbit');
+
 
 // login of registered User
 const userLogin = async function (req, res) {
@@ -48,7 +50,6 @@ const userLogin = async function (req, res) {
       );
     });
   } catch (err) {
-    console.log("error in login function is=", err.message);
     throw err;
   }
 };
@@ -81,17 +82,21 @@ const userRegister = async function (req, res) {
     queryplaceholder.push(hashedPassword);
     queryplaceholder.push(status);
 
-    SQL_DB_CONN.query(sqlQuery, queryplaceholder, (error, results) => {
+    SQL_DB_CONN.query(sqlQuery, queryplaceholder, async(error, results) => {
       if (error) {
         res.status(400).json({ error: error.message });
         return;
       }
+      // Publish registration event to RabbitMQ
+      const channel = await Rabbit.setupRabbitMQ();
+      channel.sendToQueue(process.env.REGISTER_EVENT_QUEUE, Buffer.from(JSON.stringify({ username, email })));
+      Rabbit.setupEventSubscriber();
+      
       res.status(200).json({ message: "User registered successfully" });
     });
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
-  // });
 };
 
 module.exports = {

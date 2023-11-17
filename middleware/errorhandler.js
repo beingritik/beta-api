@@ -1,9 +1,14 @@
+//Required dependencies
 const { StatusCodes } = require("http-status-codes");
 const mongoose = require("mongoose");
-const databaseVar = require("../db/database");
+const mongodatabaseVar = require("../db/database");
+
+/*MIddleware function defined for the error in different conditons in connecting
+  databases and server modifications , along with their status codes*/
 
 const errorHandlerMiddleware = (err, req, res, next) => {
 
+  //Defined custom errors and some errors in given conditions , it will send the errors responses
   let customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
     msg: err.message || "Something went wrong.try again",
@@ -21,19 +26,11 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     customError.statusCode = StatusCodes.BAD_GATEWAY;
   }
 
-
   if (err.name === "ValidationError") {
     customError.msg = Object.values(err.errors)
       .map((item) => item.message)
       .join(", ");
     customError.statusCode = 400;
-  }
-
-  if (err.name === "JsonWebTokenError") {
-    customError.msg = Object.values(err.errors)
-      .map((item) => item.message)
-      .join(", ");
-    customError.statusCode = 401;
   }
 
   if (err.errno == "1062") {
@@ -65,7 +62,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     });
   }
   if (mongoose.connection.readyState == 1) {
-    databaseVar.database_disconnect();
+    mongodatabaseVar.mongo_database_disconnect();
   }
   return res.status(customError.statusCode).json({ msg: customError.msg });
 };
