@@ -24,7 +24,7 @@ async function setupRabbitMQ() {
 
 /*
 Function for the event subscribe , it addd the message to queue and then  handling the queue and 
-write the log in given file at given file path.
+write the log in given file at given file path .
 */
 async function setupEventSubscriber() {
   try {
