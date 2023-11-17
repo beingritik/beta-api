@@ -110,23 +110,23 @@ This project consists of API endpoints for user login system using MYSQL + Nodej
 - API endpoints for CRUD operations to perform operations on Cloud MongoDB.
 
 
-## ENV Varibles
-PORT 
-MONGO_URI 
-JWT_SECRET 
-JWT_LIFETIME 
+## ENV Variables
 
-##SQL DB_CONFIG
+- MongoDB variables
+  - PORT 
+  - MONGO_URI 
+  - JWT_SECRET 
+  - JWT_LIFETIME 
 
-HOST 
-USER_DB 
-PASSWORD   
-DATABASE 
+- MYSQLDB variables
+  - HOST 
+  - USER_DB 
+  - PASSWORD   
+  - DATABASE 
 
-
-## RabbitMQ Configuration
-RABBIT_MQ_URL
-REGISTER_EVENT_QUEUE = register_events
+- RabbitMQ Configuration
+  - RABBIT_MQ_URL
+  - REGISTER_EVENT_QUEUE = register_events
 
 
 ## Contact
