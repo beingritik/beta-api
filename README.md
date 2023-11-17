@@ -75,7 +75,7 @@ This project consists of API endpoints for user login system using MYSQL + Nodej
 
      ```json
      {
-       "gameName": ["pratik", "rugby"],
+       "gameName": ["cricket", "rugby"],
        "playerStatistics": [
          { "score": 1, "level": 2, "achievements": "old is first" },
          { "score": 2, "level": 3, "achievements": "old is second" }
@@ -108,6 +108,26 @@ This project consists of API endpoints for user login system using MYSQL + Nodej
 
 - API endpoints for login and registration operations using a local MySQL DB.
 - API endpoints for CRUD operations to perform operations on Cloud MongoDB.
+
+
+## ENV Varibles
+PORT = 
+MONGO_URI =
+JWT_SECRET = 
+JWT_LIFETIME =
+
+##SQL DB_CONFIG
+
+HOST = 
+USER_DB = 
+PASSWORD = 
+DATABASE = 
+
+
+## RabbitMQ Configuration
+RABBIT_MQ_URL =
+REGISTER_EVENT_QUEUE = register_events
+
 
 ## Contact
 
