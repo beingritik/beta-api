@@ -111,21 +111,21 @@ This project consists of API endpoints for user login system using MYSQL + Nodej
 
 
 ## ENV Varibles
-PORT = 
-MONGO_URI =
-JWT_SECRET = 
-JWT_LIFETIME =
+PORT 
+MONGO_URI 
+JWT_SECRET 
+JWT_LIFETIME 
 
 ##SQL DB_CONFIG
 
-HOST = 
-USER_DB = 
-PASSWORD = 
-DATABASE = 
+HOST 
+USER_DB 
+PASSWORD   
+DATABASE 
 
 
 ## RabbitMQ Configuration
-RABBIT_MQ_URL =
+RABBIT_MQ_URL
 REGISTER_EVENT_QUEUE = register_events
 
 
